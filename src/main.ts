@@ -82,6 +82,7 @@ const render = (taskList: TaskList) => {
 
       const deleteBtn = document.createElement("button") as HTMLButtonElement
       deleteBtn.textContent = "Delete"
+      deleteBtn.id = "deleteBtn"
       li.appendChild(deleteBtn)
 
       deleteBtn.addEventListener("click", () => {

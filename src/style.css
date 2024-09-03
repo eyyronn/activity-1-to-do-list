@@ -20,32 +20,27 @@ body {
 }
 
 h1 {
-  color: #ffffffe0;
+  color: #ffe600;
   font-size: 3.2em;
-  line-height: 1.1;
   transition: color 0.25s;
 }
 
 h1:hover {
+  color: #ffffffe0;
+}
+
+p {
+  transition: color 0.25s;
+}
+
+p:hover {
   color: #ffe600;
 }
 
 ul {
-  margin: 0;
+  margin: auto;
   padding: 0;
   list-style-type: none;
-}
-
-li {
-  color: #18191a;
-  max-width: 75%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1rem;
-  border-radius: 12px;
-  word-break: break-all;
-  margin-bottom: 1em;
 }
 
 #app {
@@ -79,17 +74,51 @@ li {
   border: 2px solid #37383a;
 }
 
-#deleteBtn {
+/* #checkBox {
+  padding-right: 1em;
+  border: none;
   border-radius: 12px;
-  background-color: rgb(255, 52, 52);
-  color: #18191a;
+o  background-color: #ff3434;
+  color: #ffffff;
+  transition: background-color 0.25s
+} */
+
+#deleteButton {
+  border: none;
+  border-radius: 12px;
+  background-color: #ff3434;
+  color: #ffffff;
+  transition: background-color 0.25s
+}
+
+#deleteButton:hover {
+  background-color: #ff6a6a;
 }
 
 .task-item {
-  background-color: #ffffffe0;
+  align-items: center;
+  background-color: #ffffffce;
+  color: #18191a;
+  max-width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 12px;
+  word-break: break-all;
+  margin-bottom: 1em;
+  scale: 1;
+  transition-duration: 0.25s;
+  filter: drop-shadow(0 0 2em black)
 }
 
-.task-complete {
+.task-item:hover {
+  cursor: pointer;
+  margin-bottom: 2em;
+  scale: 1.05;
+}
+
+.task-item.is-complete {
   background-color: #6ff774;
 }
 

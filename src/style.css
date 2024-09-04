@@ -83,7 +83,7 @@ o  background-color: #ff3434;
   transition: background-color 0.25s
 } */
 
-#deleteButton {
+.delete-button {
   border: none;
   border-radius: 12px;
   background-color: #ff3434;
@@ -91,7 +91,7 @@ o  background-color: #ff3434;
   transition: background-color 0.25s
 }
 
-#deleteButton:hover {
+.delete-button:hover {
   background-color: #ff6a6a;
 }
 

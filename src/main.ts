@@ -22,7 +22,8 @@ const taskListElement = document.getElementById("task-list")
 const addTaskForm = document.getElementById("add-task-form")
 
 addTaskForm!.addEventListener("submit", (event: Event) : void => {
-  handleAddTask(event, taskList)
+  event.preventDefault()
+  handleAddTask(taskList)
 })
 
 taskListElement!.addEventListener("click", (event: Event) : void => {

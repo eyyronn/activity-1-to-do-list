@@ -4,9 +4,7 @@ import TaskList from "./taskList"
 
 let i = 0
 
-export const handleAddTask = (event: Event, taskList: TaskList) : void => {
-    event.preventDefault()
-  
+export const handleAddTask = (taskList: TaskList) : void => { 
     const inputElement = document.getElementById("task-input") as HTMLInputElement
     const inputText : string = inputElement.value.trim()
     if (!inputText) {

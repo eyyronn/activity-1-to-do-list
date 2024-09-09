@@ -10,14 +10,12 @@ export const handleAddTask = (taskList: TaskList) : void => {
     }
   
     taskList.addTask(Date.now(), inputText, false)
-    taskList.load()
     renderTasks(taskList)
     inputElement.value = ""
 }
 
 export const handleRemove = (taskID: number, taskList: TaskList) => {
     taskList.removeTask(taskID)
-    taskList.load()
     renderTasks(taskList)
 }
 

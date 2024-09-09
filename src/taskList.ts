@@ -1,18 +1,42 @@
 import TaskItem from "./taskItem";
 
 class TaskList {
-    _tasks : TaskItem[] = [];
+    private _tasks : TaskItem[] = [];
 
     get tasks() {
         return this._tasks
     }
 
-    addTask(task: TaskItem) : void {
-        this.tasks.push(task);
+    clear(): void {
+        this._tasks = []
+        this.save()
+    }
+    
+    load() : void {
+        const storedTasks: string | null = localStorage.getItem("tasks")
+        if (!(storedTasks)) return
+
+        this.clear()
+        const parsedTasks: TaskItem[] = JSON.parse(storedTasks)
+        
+        parsedTasks.forEach((task) => {
+            this.addTask(task._id, task._title, task._isCompleted)
+        })
+    }
+
+    save() : void {
+        localStorage.setItem("tasks", JSON.stringify(this.tasks))
+    }
+
+    addTask(taskID: number, taskTitle: string, taskIsCompleted: boolean) : void {
+        const task : TaskItem = new TaskItem(taskID, taskTitle, taskIsCompleted)
+        this._tasks.push(task);
+        this.save()
     };
 
     removeTask(taskID: number) : void {
         this._tasks = this.tasks.filter((task: TaskItem) => task.id !== taskID);
+        this.save()
     }
 
     toggleTaskComplete(taskID: number) : void {
@@ -20,6 +44,7 @@ class TaskList {
         if (taskToToggle) {
             taskToToggle.toggleComplete()
         }
+        this.save()
     }
   }
 

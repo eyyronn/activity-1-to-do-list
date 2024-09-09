@@ -3,10 +3,10 @@ class TaskItem {
     _title: string
     _isCompleted: boolean
 
-    constructor(id : number, title: string) {
+    constructor(id : number, title: string, isCompleted: boolean) {
         this._id = id
         this._title = title
-        this._isCompleted = false
+        this._isCompleted = isCompleted
     }
 
     get id() {

@@ -1,8 +1,5 @@
 import { renderTasks } from "./render"
-import TaskItem from "./taskItem"
 import TaskList from "./taskList"
-
-let i = 0
 
 export const handleAddTask = (taskList: TaskList) : void => { 
     const inputElement = document.getElementById("task-input") as HTMLInputElement
@@ -12,11 +9,16 @@ export const handleAddTask = (taskList: TaskList) : void => {
       return
     }
   
-    const task : TaskItem = new TaskItem(i++, inputText)
-
-    taskList.addTask(task)
+    taskList.addTask(Date.now(), inputText, false)
+    taskList.load()
     renderTasks(taskList)
     inputElement.value = ""
+}
+
+export const handleRemove = (taskID: number, taskList: TaskList) => {
+    taskList.removeTask(taskID)
+    taskList.load()
+    renderTasks(taskList)
 }
 
 export const handleToggle = (taskID: number, taskList: TaskList) => {
@@ -24,7 +26,3 @@ export const handleToggle = (taskID: number, taskList: TaskList) => {
     renderTasks(taskList)
 }
 
-export const handleRemove = (taskID: number, taskList: TaskList) => {
-    taskList.removeTask(taskID)
-    renderTasks(taskList)
-}

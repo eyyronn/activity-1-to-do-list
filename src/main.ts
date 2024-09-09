@@ -1,6 +1,7 @@
 import './style.css'
 import TaskList from './taskList'
 import {handleAddTask, handleToggle, handleRemove} from "./eventHandlers.ts"
+import { renderTasks } from './render.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = /*html*/ `
   <div>
@@ -18,6 +19,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = /*html*/ `
 `
 
 const taskList = new TaskList
+
 const taskListElement = document.getElementById("task-list")
 const addTaskForm = document.getElementById("add-task-form")
 
@@ -39,11 +41,17 @@ taskListElement!.addEventListener("click", (event: Event) : void => {
   }
 
   if (event.target.className == "delete-button") {
-    if (!(event.target.parentElement)) return
+    const taskItemElement : HTMLElement | null = event.target.parentElement
+    if (!(taskItemElement)) return
 
-    if (!(event.target.parentElement.dataset.taskId)) return
+    const taskID : string | undefined = taskItemElement.dataset.taskId
+    if (!(taskID)) return
 
-    const id = parseInt(event.target.parentElement.dataset.taskId)
+    const id = parseInt(taskID)
     handleRemove(id, taskList)
   }
 })
+
+taskList.load()
+renderTasks(taskList)
+console.log(taskList)

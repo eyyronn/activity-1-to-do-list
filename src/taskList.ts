@@ -1,3 +1,4 @@
+import Status from "./status";
 import TaskItem from "./taskItem";
 
 class TaskList {
@@ -14,13 +15,13 @@ class TaskList {
     
     load() : void {
         const storedTasks: string | null = localStorage.getItem("tasks")
-        if (!(storedTasks)) return
+        if (!storedTasks) return
 
         this.clear()
         const parsedTasks: TaskItem[] = JSON.parse(storedTasks)
         
         parsedTasks.forEach((task) => {
-            this.addTask(task._id, task._title, task._isCompleted)
+            this.addTask(task._id, task._title, task._status, task._dueDate)
         })
     }
 
@@ -28,14 +29,14 @@ class TaskList {
         localStorage.setItem("tasks", JSON.stringify(this.tasks))
     }
 
-    addTask(taskID: number, taskTitle: string, taskIsCompleted: boolean) : void {
-        const task : TaskItem = new TaskItem(taskID, taskTitle, taskIsCompleted)
-        this._tasks.push(task);
+    addTask(id: number, title: string, status: Status, dueDate: string) : void {
+        const newTask : TaskItem = new TaskItem(id, title, status, dueDate)
+        this._tasks.push(newTask);
         this.save()
     };
 
-    removeTask(taskID: number) : void {
-        this._tasks = this.tasks.filter((task: TaskItem) => task.id !== taskID);
+    removeTask(id: number) : void {
+        this._tasks = this.tasks.filter((task: TaskItem) => task.id !== id);
         this.save()
     }
 

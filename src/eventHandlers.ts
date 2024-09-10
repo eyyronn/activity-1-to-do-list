@@ -1,17 +1,20 @@
 import { renderTasks } from "./render"
+import Status from "./status"
 import TaskList from "./taskList"
 
-export const handleAddTask = (taskList: TaskList) : void => { 
-    const inputElement = document.getElementById("task-input") as HTMLInputElement
-    const inputText : string = inputElement.value.trim()
-    if (!inputText) {
-      alert("Invalid input!")
-      return
+export const handleAddTask = (tasktitle: string, taskDueDate: string, taskList: TaskList) : void => { 
+    if (!tasktitle) {
+        alert("Invalid title!")
+        return
+      }
+
+    if (!taskDueDate) {
+        alert("Invalid due date!")
+        return
     }
   
-    taskList.addTask(Date.now(), inputText, false)
+    taskList.addTask(Date.now(), tasktitle, Status.isActive, taskDueDate)
     renderTasks(taskList)
-    inputElement.value = ""
 }
 
 export const handleRemove = (taskID: number, taskList: TaskList) => {

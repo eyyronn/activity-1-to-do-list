@@ -14,14 +14,22 @@ export const renderTasks = (taskList: TaskList) => {
 export const renderTaskItem = (taskItem: TaskItem) : HTMLLIElement => {
     const li = document.createElement("li")
     li.className = "task-item"
-
-    if (taskItem.isCompleted) {
+    
+    if (taskItem.isCompleted()) {
       li.classList.toggle("is-complete")
     }
 
     const title = document.createElement("h3")
     title.textContent = taskItem.title
     li.appendChild(title)
+
+    const dateAdded = document.createElement("p")
+    dateAdded.textContent = taskItem.dateAdded.toUTCString()
+    li.appendChild(dateAdded)
+
+    const dueDate = document.createElement("p")
+    dueDate.textContent = taskItem.dueDate.toUTCString()
+    li.appendChild(dueDate)
 
     const deleteButton = document.createElement("button")
     deleteButton.textContent = "Delete"

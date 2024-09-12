@@ -70,7 +70,7 @@ ul {
   transition: border-color 0.25s;
 }
 
-#task-input:hover{
+#task-input:hover {
   border: 2px solid #37383a;
 }
 
@@ -88,7 +88,7 @@ o  background-color: #ff3434;
   border-radius: 12px;
   background-color: #ff3434;
   color: #ffffff;
-  transition: background-color 0.25s
+  transition: background-color 0.25s;
 }
 
 .delete-button:hover {
@@ -109,7 +109,7 @@ o  background-color: #ff3434;
   margin-bottom: 1em;
   scale: 1;
   transition-duration: 0.25s;
-  filter: drop-shadow(0 0 2em black)
+  filter: drop-shadow(0 0 2em black);
 }
 
 .task-item:hover {
@@ -131,7 +131,9 @@ button {
   background-color: #242526;
   color: #9a9ea1;
   cursor: pointer;
-  transition: background-color 0.25s, border-color 0.25s;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s;
 }
 
 button:hover {
@@ -139,6 +141,6 @@ button:hover {
 }
 button:focus,
 button:focus-visible {
-  border-color: #9a9ea1;;
+  border-color: #9a9ea1;
   background-color: #47484b;
 }

@@ -1,42 +1,64 @@
-import TaskItem from "./taskItem";
-import TaskList from "./taskList";
+import SortOption from "./enums/sortOption"
+import Status from "./enums/status"
+import TaskItem from "./models/taskItem"
+import TaskList from "./models/taskList"
+import filterFor from "./utils/filterFor"
+import sortBy from "./utils/sortBy"
 
-export const renderTasks = (taskList: TaskList) => {  
-    const taskListElement = document.getElementById("task-list")
-    taskListElement!.innerHTML = ""
-  
-    taskList.tasks.forEach(taskItem => {
-        const taskItemElement = renderTaskItem(taskItem)  
-        taskListElement!.appendChild(taskItemElement)   
-    });
-  }
+interface RenderOptions {
+  sort?: SortOption
+  filter?: Status
+  isAscending?: boolean
+}
 
-export const renderTaskItem = (taskItem: TaskItem) : HTMLLIElement => {
-    const li = document.createElement("li")
-    li.className = "task-item"
-    
-    if (taskItem.isCompleted()) {
-      li.classList.toggle("is-complete")
+export const renderTasks = (taskList: TaskList, renderOptions?: RenderOptions): void => {
+  taskList.taskListElement.innerHTML = ''
+
+  let tasksToRender = taskList.tasks
+
+  if (renderOptions) { 
+    if (renderOptions.sort) {
+      tasksToRender = sortBy(tasksToRender, renderOptions.sort)
     }
 
-    const title = document.createElement("h3")
-    title.textContent = taskItem.title
-    li.appendChild(title)
+    if (renderOptions.filter) {
+      tasksToRender = filterFor(tasksToRender, renderOptions.filter)
+    }
+    if (renderOptions.isAscending == false) {
+      tasksToRender.reverse()
+    }
+  }
 
-    const dateAdded = document.createElement("p")
-    dateAdded.textContent = taskItem.dateAdded.toUTCString()
-    li.appendChild(dateAdded)
+  tasksToRender.forEach((taskItem) => {
+    const taskItemElement = document.createElement('li')
+    renderTaskItem(taskItem, taskItemElement)
+    taskList.taskListElement.appendChild(taskItemElement)
+  })
+}
 
-    const dueDate = document.createElement("p")
-    dueDate.textContent = taskItem.dueDate.toUTCString()
-    li.appendChild(dueDate)
+export const renderTaskItem = (taskItem: TaskItem, taskItemElement: HTMLLIElement): void => {
+  taskItemElement.className = 'task-item'
 
-    const deleteButton = document.createElement("button")
-    deleteButton.textContent = "Delete"
-    deleteButton.className = "delete-button"
-    li.appendChild(deleteButton)
-    
-    li.setAttribute("data-task-id", taskItem.id.toString())
+  if (taskItem.isCompleted()) {
+    taskItemElement.classList.add('is-complete')
+  }
 
-    return li
+  const title = document.createElement('h3')
+  title.textContent = taskItem.title
+  taskItemElement.appendChild(title)
+
+  const dateAdded = document.createElement('p')
+  dateAdded.textContent = taskItem.dateAdded.toUTCString()
+  taskItemElement.appendChild(dateAdded)
+
+  const dueDate = document.createElement('p')
+  dueDate.textContent = taskItem.dueDate.toUTCString()
+  taskItemElement.appendChild(dueDate)
+
+  const deleteButton = document.createElement('button')
+  deleteButton.textContent = 'Delete'
+  deleteButton.className = 'delete-button'
+  taskItemElement.appendChild(deleteButton)
+
+  taskItemElement.setAttribute('data-task-id', taskItem.id.toString())
 }

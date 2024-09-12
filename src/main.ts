@@ -2,8 +2,6 @@ import './style.css'
 import TaskList from './models/taskList.ts'
 import { handleAddTask, handleToggle, handleRemove } from './eventHandlers.ts'
 import { renderTasks } from './render.ts'
-import SortOption from './enums/sortOption.ts'
-import Status from './enums/status.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = /*html*/ `
   <div>
@@ -66,6 +64,6 @@ taskListElement!.addEventListener('click', (event: Event): void => {
 })
 
 taskList.load()
-renderTasks(taskList, {sort: SortOption.title, filter: Status.isCompleted, isAscending: false})
+renderTasks(taskList)
 
 console.log(taskList)

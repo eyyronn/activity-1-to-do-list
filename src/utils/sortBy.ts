@@ -4,16 +4,16 @@ import TaskItem from "../models/taskItem"
 const sortBy = (tasks: TaskItem[], sortOption: SortOption) : TaskItem[]  => {
     let tasksCopy = tasks
     tasksCopy.sort((a, b) => {
-        if (sortOption == SortOption.title) {
-            return sortAlphabetically(a.title, b.title)
+        switch (sortOption) {
+            case SortOption.title:
+                return sortAlphabetically(a.title, b.title)
+
+            case SortOption.dateAdded:
+                return sortByDate(a.dateAdded, b.dateAdded)
+                
+            case SortOption.dueDate:
+                return sortByDate(a.dueDate, b.dueDate)
         }
-        if (sortOption == SortOption.dateAdded) {
-            return sortByDate(a.dateAdded, b.dateAdded)
-        }
-        if (sortOption == SortOption.dueDate) {
-            return sortByDate(a.dueDate, b.dueDate)
-        }
-        return 0
     })
     return tasksCopy
 }

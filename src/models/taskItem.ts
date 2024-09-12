@@ -36,6 +36,10 @@ class TaskItem {
     return new Date(this._dueDate)
   }
 
+  get status() {
+    return this._status
+  }
+
   set status(newStatus: Status) {
     this._status = newStatus
   }

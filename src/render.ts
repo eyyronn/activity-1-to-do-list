@@ -5,7 +5,7 @@ import TaskList from "./models/taskList"
 import filterFor from "./utils/filterFor"
 import sortBy from "./utils/sortBy"
 
-interface RenderOptions {
+export interface RenderOptions {
   sort?: SortOption
   filter?: Status
   isAscending?: boolean
@@ -39,25 +39,33 @@ export const renderTasks = (taskList: TaskList, renderOptions?: RenderOptions): 
 export const renderTaskItem = (taskItem: TaskItem, taskItemElement: HTMLLIElement): void => {
   taskItemElement.className = 'task-item'
 
-  if (taskItem.isCompleted()) {
-    taskItemElement.classList.add('is-complete')
-  }
+  const completeToggle = document.createElement('input')
+  completeToggle.type = 'checkbox'
+  completeToggle.className = 'complete-toggle'
+  completeToggle.checked = taskItem.isCompleted()
+
+  if (completeToggle.checked) taskItemElement.classList.toggle('is-complete')
+
+  taskItemElement.appendChild(completeToggle)
 
   const title = document.createElement('h3')
   title.textContent = taskItem.title
   taskItemElement.appendChild(title)
 
-  const dateAdded = document.createElement('p')
-  dateAdded.textContent = taskItem.dateAdded.toUTCString()
-  taskItemElement.appendChild(dateAdded)
-
   const dueDate = document.createElement('p')
-  dueDate.textContent = taskItem.dueDate.toUTCString()
+  const dueDateText = `${taskItem.dueDate.getMonth() + 1}/${taskItem.dueDate.getDate()}/${taskItem.dueDate.getFullYear()}`
+  dueDate.textContent = dueDateText
   taskItemElement.appendChild(dueDate)
+
+  const dueTime = document.createElement('p')
+  const dueTimeText = `${taskItem.dueDate.getHours()}:${taskItem.dueDate.getMinutes()}`
+  dueTime.textContent = dueTimeText
+  taskItemElement.appendChild(dueTime)
 
   const deleteButton = document.createElement('button')
   deleteButton.textContent = 'Delete'
   deleteButton.className = 'delete-button'
+
   taskItemElement.appendChild(deleteButton)
 
   taskItemElement.setAttribute('data-task-id', taskItem.id.toString())
